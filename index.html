@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Conviction Index™ — Cyber Unveil International</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,600&family=DM+Mono:wght@300;400;500&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold-light: #F2D87A;
+  --gold:       #DDB868;
+  --gold-dark:  #C19A40;
+  --gold-deep:  #7A5418;
+  --ink:        #0A0908;
+  --ink-2:      #14110D;
+  --ink-3:      #1C1813;
+  --cream:      #F5F1E6;
+  --cream-dim:  rgba(245,241,230,0.82);
+  --cream-mute: rgba(245,241,230,0.62);
+  --cream-faint:rgba(245,241,230,0.25);
+  --pulse:      #E55E3E;
+  --pulse-cool: #4DA89E;
+  --human:      #F2D87A;
+  --machine:    #9CA3AF;
+}
+
+html, body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Inter Tight', system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── Custom cursor ── */
+.cursor {
+  position: fixed; z-index: 9999;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transform: translate(-50%,-50%);
+  transition: width 0.2s, height 0.2s;
+}
+.cursor.over { width: 44px; height: 44px; background: var(--gold-light); }
+
+/* ── Grain overlay ── */
+.grain {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.05;
+}
+
+/* ── Container ── */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── HEADER ── */
+.header {
+  padding: 32px 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid rgba(201,162,84,0.15);
+}
+
+.brand {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+.brand span { color: var(--cream-dim); }
+
+.header-right {
+  display: flex;
+  gap: 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  font-weight: 500;
+}
+
+/* ── HERO SECTION ── */
+.hero {
+  padding: 100px 0 80px;
+  position: relative;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 36px;
+  font-weight: 500;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--gold-light);
+}
+
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(56px, 9vw, 144px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: 28px;
+  font-variation-settings: "opsz" 144;
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 600;
+  background: linear-gradient(135deg, #F8E08C 0%, #F2D87A 40%, #DDB868 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.hero-deck {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.55;
+  color: var(--cream-dim);
+  max-width: 720px;
+  margin-bottom: 56px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 48px;
+  padding-top: 28px;
+  border-top: 0.5px solid rgba(201,162,84,0.15);
+}
+
+.meta-item {}
+
+.meta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-mute);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.meta-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--cream);
+}
+
+.meta-value strong {
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+/* ── DEFINITION ── */
+.definition {
+  padding: 80px 0;
+  border-top: 0.5px solid rgba(201,162,84,0.15);
+  position: relative;
+}
+
+.def-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+.def-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  position: sticky;
+  top: 24px;
+  font-weight: 500;
+}
+
+.def-text {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 34px;
+  line-height: 1.4;
+  color: var(--cream);
+}
+
+.def-text em {
+  font-style: italic;
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+.def-text strong {
+  font-weight: 600;
+  color: var(--cream);
+}
+
+.def-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 32px 0;
+}
+
+.def-sub {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--cream-dim);
+  max-width: 680px;
+}
+
+/* ── INTERACTIVE INDEX ── */
+.index-section {
+  padding: 100px 0;
+  border-top: 0.5px solid rgba(201,162,84,0.15);
+  position: relative;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 500;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: linear-gradient(90deg, var(--gold-light), transparent);
+  max-width: 200px;
+}
+
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 16px;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--gold-light);
+  font-weight: 400;
+}
+
+.section-sub {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--cream-dim);
+  max-width: 680px;
+  margin-bottom: 60px;
+  font-weight: 400;
+}
+
+/* ── INTERACTIVE CONTROL ── */
+.control-panel {
+  background: linear-gradient(180deg, var(--ink-2) 0%, var(--ink) 100%);
+  border: 0.5px solid rgba(201,162,84,0.2);
+  border-radius: 2px;
+  padding: 48px;
+  position: relative;
+  margin-bottom: 60px;
+}
+
+.control-panel::before {
+  content: '';
+  position: absolute;
+  top: -1px; right: -1px;
+  width: 60px; height: 60px;
+  border-top: 1px solid var(--gold);
+  border-right: 1px solid var(--gold);
+}
+
+.control-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: -1px;
+  width: 60px; height: 60px;
+  border-bottom: 1px solid var(--gold);
+  border-left: 1px solid var(--gold);
+}
+
+/* The Index Display */
+.index-display {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+.dimension {
+  text-align: center;
+}
+
+.dim-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.dim-human .dim-icon {
+  background: radial-gradient(circle, #F2D87A 0%, #C19A40 100%);
+  color: var(--ink);
+  box-shadow: 0 0 30px rgba(242,216,122,0.5);
+}
+
+.dim-machine .dim-icon {
+  background: radial-gradient(circle, #4A4A48 0%, #2A2A28 100%);
+  color: var(--cream-dim);
+  border: 1px solid rgba(107,114,128,0.3);
+}
+
+.dim-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.dim-human .dim-label { color: var(--gold-light); font-weight: 500; }
+.dim-machine .dim-label { color: var(--cream-dim); font-weight: 500; }
+
+.dim-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 56px;
+  line-height: 1;
+  margin-bottom: 6px;
+  font-variation-settings: "opsz" 144;
+}
+
+.dim-human .dim-value { color: var(--gold-light); }
+.dim-machine .dim-value { color: var(--cream-dim); }
+
+.dim-desc {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 12px;
+  color: var(--cream-mute);
+  font-weight: 400;
+}
+
+.dim-equation {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--gold-light);
+}
+
+/* ── SLIDER ── */
+.slider-wrap {
+  margin-bottom: 32px;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.slider-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--cream);
+}
+
+.slider-output {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+.slider-track {
+  position: relative;
+  height: 64px;
+  background: var(--ink-3);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: ew-resize;
+  border: 0.5px solid rgba(201,162,84,0.15);
+}
+
+.slider-fill-human {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 50%;
+  background: linear-gradient(90deg, #C19A40, #DDB868 50%, #F2D87A);
+  transition: width 0.1s ease;
+}
+
+.slider-fill-machine {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 50%;
+  background: linear-gradient(90deg, #2A2A28 0%, #3A3A38 100%);
+  transition: width 0.1s ease;
+}
+
+.slider-labels {
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24px;
+  pointer-events: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.slider-labels span:first-child { color: #0A0908; font-weight: 700; }
+.slider-labels span:last-child { color: var(--cream); font-weight: 600; }
+
+.slider-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px; height: 80px;
+  background: var(--cream);
+  cursor: ew-resize;
+  pointer-events: none;
+  transition: left 0.1s;
+  box-shadow: 0 0 20px rgba(242,237,224,0.4);
+}
+
+.slider-handle::before, .slider-handle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--cream);
+}
+
+.slider-handle::before { top: -8px; }
+.slider-handle::after  { bottom: -8px; }
+
+/* ── INSIGHT READOUT ── */
+.insight-readout {
+  background: var(--ink);
+  border: 0.5px solid rgba(201,162,84,0.2);
+  padding: 32px;
+  border-left: 3px solid var(--gold);
+  margin-bottom: 32px;
+}
+
+.insight-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.insight-text {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--cream);
+  min-height: 100px;
+  transition: opacity 0.3s;
+}
+
+.insight-text em {
+  font-style: italic;
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+/* ── Scenarios ── */
+.scenarios {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.scenario-btn {
+  background: transparent;
+  border: 0.5px solid rgba(221,184,104,0.35);
+  color: var(--cream);
+  padding: 16px 18px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.scenario-btn:hover, .scenario-btn.active {
+  border-color: var(--gold-light);
+  color: var(--gold-light);
+  background: rgba(221,184,104,0.08);
+}
+
+.scenario-btn small {
+  display: block;
+  font-family: 'Fraunces', serif;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--cream-dim);
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* ── THE FIVE DIMENSIONS ── */
+.dimensions-section {
+  padding: 100px 0;
+  border-top: 0.5px solid rgba(201,162,84,0.15);
+}
+
+.dimensions-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: rgba(201,162,84,0.15);
+  margin-top: 60px;
+  border: 0.5px solid rgba(201,162,84,0.15);
+}
+
+.dimension-cell {
+  background: var(--ink);
+  padding: 36px 28px;
+  transition: background 0.4s;
+  cursor: pointer;
+  position: relative;
+}
+
+.dimension-cell:hover {
+  background: var(--ink-2);
+}
+
+.dim-num {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--gold-light);
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.dim-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.15;
+  color: var(--cream);
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+
+.dim-name em {
+  font-style: italic;
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+.dim-divider {
+  width: 24px;
+  height: 1px;
+  background: var(--gold-light);
+  margin-bottom: 18px;
+}
+
+.dim-desc {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--cream-dim);
+}
+
+/* ── THESIS ── */
+.thesis {
+  padding: 120px 0 100px;
+  border-top: 0.5px solid rgba(201,162,84,0.15);
+  position: relative;
+  text-align: center;
+}
+
+.thesis-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+.thesis-text {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(28px, 4.5vw, 56px);
+  line-height: 1.2;
+  color: var(--cream);
+  max-width: 1000px;
+  margin: 0 auto;
+  letter-spacing: -0.02em;
+}
+
+.thesis-text em {
+  font-style: italic;
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+.thesis-attribution {
+  margin-top: 56px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  font-weight: 500;
+}
+
+.thesis-attribution strong { color: var(--gold-light); font-weight: 600; }
+
+/* ── FOOTER ── */
+.footer {
+  padding: 32px 0;
+  border-top: 0.5px solid rgba(221,184,104,0.18);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+
+.footer strong { color: var(--gold-light); font-weight: 600; }
+
+/* Decorative number */
+.deco-number {
+  position: absolute;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 480px;
+  line-height: 0.8;
+  color: rgba(201,162,84,0.025);
+  pointer-events: none;
+  z-index: 0;
+  top: 0;
+  right: -80px;
+}
+
+/* Pulse animation for the human dimension */
+@keyframes humanPulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(242,216,122,0.5); }
+  50%       { box-shadow: 0 0 60px rgba(242,216,122,0.8), 0 0 100px rgba(242,216,122,0.4); }
+}
+
+.dim-human .dim-icon { animation: humanPulse 3s ease infinite; }
+
+/* Page load reveal */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow, .hero-title, .hero-deck, .hero-meta {
+  animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.hero-title { animation-delay: 0.1s; }
+.hero-deck  { animation-delay: 0.25s; }
+.hero-meta  { animation-delay: 0.4s; }
+
+@media (max-width: 900px) {
+  .container { padding: 0 24px; }
+  .def-grid { grid-template-columns: 1fr; gap: 32px; }
+  .def-text { font-size: 24px; }
+  .index-display { grid-template-columns: 1fr; gap: 24px; }
+  .dim-equation { display: none; }
+  .dimensions-grid { grid-template-columns: 1fr; }
+  .scenarios { grid-template-columns: 1fr 1fr; }
+  .section-title { font-size: 36px; }
+  .control-panel { padding: 24px; }
+  html, body { cursor: auto; }
+  .cursor { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="grain"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand">Cyber Unveil International <span>·  Founding Document  ·  May 2026</span></div>
+    <div class="header-right">
+      <span>v 1.0</span>
+      <span>Public Release</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="deco-number">01</div>
+
+    <div class="hero-eyebrow">A New Category · Introduced Today</div>
+
+    <h1 class="hero-title">
+      The<br>
+      <em>Conviction</em><br>
+      Index™
+    </h1>
+
+    <p class="hero-deck">
+      Every framework in cybersecurity treats humans as the weak link.<br>
+      We are introducing the framework that treats them as the <em>last defensible asset</em>.
+    </p>
+
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-label">Authored by</div>
+        <div class="meta-value"><strong>Cyber Unveil International</strong></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Category</div>
+        <div class="meta-value">Human-Anchored Security™</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value">Founding Release · Public Domain</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">First Date</div>
+        <div class="meta-value">May 15, 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEFINITION -->
+  <section class="definition">
+    <div class="def-grid">
+      <div class="def-label">The Definition</div>
+      <div>
+        <div class="def-text">
+          <strong>The Conviction Index™</strong> is the measurable ratio between an organization's <em>autonomous machine decisions</em> and its <em>governed human judgment</em> — across every consequential moment where an AI system acts on its behalf.
+        </div>
+        <div class="def-divider"></div>
+        <div class="def-sub">
+          In an era where AI agents transact, negotiate, hire, fire, allocate capital, and contain breaches without human approval — the most important number in your organization is no longer revenue, EBITDA, or attack surface. It is the percentage of consequential decisions still anchored in human conviction. Below a critical threshold, an enterprise becomes structurally unable to defend itself — not because of its security tooling, but because there is no longer a human moment where judgment, ethics, and intuition can intervene.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE INDEX -->
+  <section class="index-section">
+    <div class="section-label">The Instrument</div>
+    <h2 class="section-title">Measure your <em>Conviction Index</em>.</h2>
+    <p class="section-sub">
+      Drag the threshold below. Read what your organization looks like at each ratio of human-to-machine decision-making. The category did not exist yesterday. By next year, it will be in every board pack.
+    </p>
+
+    <div class="control-panel">
+
+      <!-- Index Display -->
+      <div class="index-display">
+        <div class="dimension dim-human">
+          <div class="dim-icon">H</div>
+          <div class="dim-label">Human Conviction</div>
+          <div class="dim-value" id="humanVal">50%</div>
+          <div class="dim-desc">governed judgment</div>
+        </div>
+        <div class="dim-equation">∶</div>
+        <div class="dimension dim-machine">
+          <div class="dim-icon">M</div>
+          <div class="dim-label">Machine Autonomy</div>
+          <div class="dim-value" id="machineVal">50%</div>
+          <div class="dim-desc">autonomous action</div>
+        </div>
+      </div>
+
+      <!-- Slider -->
+      <div class="slider-wrap">
+        <div class="slider-header">
+          <div class="slider-title">Your Conviction Ratio</div>
+          <div class="slider-output" id="ratioOutput">CI = 1.00</div>
+        </div>
+        <div class="slider-track" id="sliderTrack">
+          <div class="slider-fill-human" id="fillHuman"></div>
+          <div class="slider-fill-machine" id="fillMachine"></div>
+          <div class="slider-labels">
+            <span>HUMAN</span>
+            <span>MACHINE</span>
+          </div>
+          <div class="slider-handle" id="sliderHandle"></div>
+        </div>
+      </div>
+
+      <!-- Insight Readout -->
+      <div class="insight-readout">
+        <div class="insight-eyebrow">What Your Index Means</div>
+        <div class="insight-text" id="insightText">
+          A balanced Conviction Index. Humans still anchor half of consequential decisions. <em>This is sustainable — for now.</em> But the trajectory matters more than the moment.
+        </div>
+      </div>
+
+      <!-- Scenario presets -->
+      <div class="scenarios">
+        <button class="scenario-btn" data-val="85">2024 Baseline<small>Mostly human decisions</small></button>
+        <button class="scenario-btn active" data-val="50">2026 Inflection<small>Current enterprise reality</small></button>
+        <button class="scenario-btn" data-val="20">2027 Trajectory<small>AI-agent dominant</small></button>
+        <button class="scenario-btn" data-val="5">The Failure Mode<small>No human anchor left</small></button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- THE FIVE DIMENSIONS -->
+  <section class="dimensions-section">
+    <div class="section-label">The Doctrine</div>
+    <h2 class="section-title">Five dimensions of <em>human exception</em>.</h2>
+    <p class="section-sub">
+      The Conviction Index™ does not measure productivity. It measures the irreducible human capacities that no AI can replicate — and that every enterprise must preserve to remain defensible.
+    </p>
+
+    <div class="dimensions-grid">
+      <div class="dimension-cell">
+        <div class="dim-num">i</div>
+        <div class="dim-name"><em>Moral</em><br>Latency</div>
+        <div class="dim-divider"></div>
+        <div class="dim-desc">The pause before action where right and wrong become legible. AI eliminates this pause by design. Conviction restores it deliberately.</div>
+      </div>
+      <div class="dimension-cell">
+        <div class="dim-num">ii</div>
+        <div class="dim-name"><em>Contextual</em><br>Intuition</div>
+        <div class="dim-divider"></div>
+        <div class="dim-desc">Reading the room. Sensing when policy must bend and when it must hold. The capacity that turns rules into wisdom.</div>
+      </div>
+      <div class="dimension-cell">
+        <div class="dim-num">iii</div>
+        <div class="dim-name"><em>Accountable</em><br>Authorship</div>
+        <div class="dim-divider"></div>
+        <div class="dim-desc">A named person whose career, reputation, and conscience are bound to the decision. Liability without a human owner is not liability — it is theatre.</div>
+      </div>
+      <div class="dimension-cell">
+        <div class="dim-num">iv</div>
+        <div class="dim-name"><em>Strategic</em><br>Refusal</div>
+        <div class="dim-divider"></div>
+        <div class="dim-desc">The willingness to say no to a technically optimal decision because it is humanly wrong. AI does not refuse. It only optimizes.</div>
+      </div>
+      <div class="dimension-cell">
+        <div class="dim-num">v</div>
+        <div class="dim-name"><em>Mythic</em><br>Vision</div>
+        <div class="dim-divider"></div>
+        <div class="dim-desc">The capacity to imagine futures that have never existed. AI extrapolates. Humans invent. This is the last frontier of irreplaceable contribution.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THESIS -->
+  <section class="thesis">
+    <div class="thesis-eyebrow">The Strategic Thesis</div>
+    <div class="thesis-text">
+      The defensible enterprise of 2027<br>
+      will not be the one with <em>the most automation</em>.<br>
+      It will be the one that knew exactly<br>
+      <em>where to keep the human</em>.
+    </div>
+    <div class="thesis-attribution">
+      A Founding Document by <strong>Cyber Unveil International</strong><br>
+      Released to the public domain · May 15, 2026
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div><strong>The Conviction Index™</strong> · Cyber Unveil International · QuantVeil™ · ADS™</div>
+    <div>cyberunveil.com</div>
+  </div>
+
+</div>
+
+<script>
+  // ── Cursor ──
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+  document.querySelectorAll('.scenario-btn, .slider-track').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('over'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('over'));
+  });
+
+  // ── Slider logic ──
+  const track   = document.getElementById('sliderTrack');
+  const handle  = document.getElementById('sliderHandle');
+  const fillH   = document.getElementById('fillHuman');
+  const fillM   = document.getElementById('fillMachine');
+  const humanV  = document.getElementById('humanVal');
+  const machineV= document.getElementById('machineVal');
+  const ratioO  = document.getElementById('ratioOutput');
+  const insight = document.getElementById('insightText');
+
+  let dragging = false;
+  let currentValue = 50;
+
+  const insights = [
+    {
+      threshold: 90,
+      text: 'An almost entirely <em>human-anchored</em> organization. Robust against AI failure modes, but slow. The challenge ahead is not preservation. It is calibration — knowing where to delegate without surrendering judgment.'
+    },
+    {
+      threshold: 70,
+      text: 'A <em>conviction-led</em> enterprise. Humans remain the spine of consequential decision-making. This is the strategic posture most boards should aim for in 2027 — until proven otherwise by outcome data, not vendor pressure.'
+    },
+    {
+      threshold: 50,
+      text: 'You are at the <em>inflection point</em>. Half of your consequential decisions still pass through a human. The other half do not. The next 18 months will decide whether your organization preserves the anchor — or surrenders it quietly to convenience.'
+    },
+    {
+      threshold: 30,
+      text: 'A <em>machine-led</em> operating model. The system is fast, but the human moment has become exceptional rather than structural. At this ratio, accountability begins to disperse. Liability becomes ambiguous. Trust becomes a marketing claim, not an operational reality.'
+    },
+    {
+      threshold: 10,
+      text: 'Critical. There is no longer a human moment in the loop. <em>Decisions happen to your company</em>, not within it. The board cannot govern what it cannot interrupt. This is not a security posture. It is a governance vacuum.'
+    },
+    {
+      threshold: 0,
+      text: 'The <em>failure mode</em>. A fully autonomous enterprise without human conviction is not an enterprise. It is a process — and processes cannot be held responsible. When something goes wrong here, no one will be able to explain why.'
+    }
+  ];
+
+  function getInsight(humanPct) {
+    for (const i of insights) {
+      if (humanPct >= i.threshold) return i.text;
+    }
+    return insights[insights.length - 1].text;
+  }
+
+  function update(pct) {
+    pct = Math.max(0, Math.min(100, pct));
+    currentValue = pct;
+    const machinePct = 100 - pct;
+
+    fillH.style.width = pct + '%';
+    fillM.style.width = machinePct + '%';
+    handle.style.left = pct + '%';
+    humanV.textContent   = Math.round(pct) + '%';
+    machineV.textContent = Math.round(machinePct) + '%';
+
+    const ratio = pct === 0 ? '0.00' : (pct / Math.max(machinePct, 1)).toFixed(2);
+    ratioO.textContent = `CI = ${ratio}`;
+
+    insight.style.opacity = '0';
+    setTimeout(() => {
+      insight.innerHTML = getInsight(pct);
+      insight.style.opacity = '1';
+    }, 150);
+
+    // Update active scenario
+    document.querySelectorAll('.scenario-btn').forEach(b => {
+      const v = parseInt(b.dataset.val);
+      b.classList.toggle('active', Math.abs(v - pct) < 3);
+    });
+  }
+
+  function getPctFromEvent(e) {
+    const rect = track.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    return (x / rect.width) * 100;
+  }
+
+  track.addEventListener('mousedown', e => { dragging = true; update(getPctFromEvent(e)); });
+  track.addEventListener('touchstart', e => { dragging = true; update(getPctFromEvent(e)); }, { passive: true });
+
+  document.addEventListener('mousemove', e => { if (dragging) update(getPctFromEvent(e)); });
+  document.addEventListener('touchmove',  e => { if (dragging) update(getPctFromEvent(e)); }, { passive: true });
+
+  document.addEventListener('mouseup', () => dragging = false);
+  document.addEventListener('touchend', () => dragging = false);
+
+  // Scenario buttons
+  document.querySelectorAll('.scenario-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      update(parseInt(btn.dataset.val));
+    });
+  });
+
+  // Initial state — animate from 0 to 50
+  setTimeout(() => {
+    let p = 0;
+    const interval = setInterval(() => {
+      p += 2;
+      update(p);
+      if (p >= 50) clearInterval(interval);
+    }, 20);
+  }, 800);
+</script>
+
+</body>
+</html>
