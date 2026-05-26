@@ -1067,6 +1067,95 @@ html, body {
     }, 20);
   }, 800);
 </script>
+<style>
+/* ── Founding Document Footer Bar ── */
+.founding-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(10, 9, 8, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 0.5px solid rgba(242, 216, 122, 0.28);
+  padding: 12px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
 
+.founding-bar-text {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 230, 0.62);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.founding-bar-text strong {
+  color: #F2D87A;
+  font-weight: 600;
+}
+
+.founding-bar-cta {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #0A0908;
+  background: linear-gradient(135deg, #F8E08C 0%, #F2D87A 50%, #DDB868 100%);
+  padding: 9px 20px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 1px;
+  white-space: nowrap;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.founding-bar-cta:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.founding-bar-close {
+  background: none;
+  border: none;
+  color: rgba(245, 241, 230, 0.4);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.founding-bar-close:hover {
+  color: rgba(245, 241, 230, 0.8);
+}
+
+/* Push content up so bar doesn't cover the bottom of the page */
+body { padding-bottom: 60px !important; }
+
+@media (max-width: 600px) {
+  .founding-bar { padding: 10px 20px; gap: 12px; }
+  .founding-bar-text { font-size: 9px; letter-spacing: 0.16em; }
+  .founding-bar-cta { font-size: 9px; padding: 8px 14px; }
+}
+</style>
+
+<div class="founding-bar" id="founding-bar">
+  <span class="founding-bar-text">
+    <strong>The Conviction Index™</strong> · Founding Document · Public Record · May 15, 2026
+  </span>
+  <a class="founding-bar-cta" href="./founding/">
+    Read the Founding Document →
+  </a>
+  <button class="founding-bar-close" onclick="document.getElementById('founding-bar').style.display='none'" aria-label="Dismiss">✕</button>
+</div>
 </body>
 </html>
