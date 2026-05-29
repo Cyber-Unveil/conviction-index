@@ -1,1 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Last Thing It Cannot Do · The Conviction Index™</title>
+<meta name="description" content="AI extrapolates. Humans invent. An interactive demonstration of Mythic Vision — the fifth dimension of the Conviction Index. Do the one thing the machine cannot.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Last Thing It Cannot Do">
+<meta property="og:description" content="AI extrapolates. Humans invent. Cross the threshold the machine cannot — and add your vision to the ledger.">
+<meta property="og:site_name" content="Cyber Unveil International">
+<meta property="og:url" content="https://cyber-unveil.github.io/conviction-index/mythic-vision/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Last Thing It Cannot Do">
+<meta name="twitter:description" content="AI extrapolates. Humans invent. Do the one thing the machine cannot.">
+
+<link rel="canonical" href="https://cyber-unveil.github.io/conviction-index/mythic-vision/">
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Mono:wght@300;400;500;600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold-light: #F2D87A;
+  --gold:       #DDB868;
+  --gold-dark:  #C19A40;
+  --gold-deep:  #7A5418;
+  --ink:        #0A0908;
+  --ink-2:      #14110D;
+  --ink-cold:   #0B0D11;
+  --cream:      #F5F1E6;
+  --cream-dim:  rgba(245,241,230,0.82);
+  --cream-mute: rgba(245,241,230,0.62);
+  --cream-faint:rgba(245,241,230,0.25);
+  --machine-blue: #8FA8D4;
+}
+
+html, body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Inter Tight', system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+}
+
+/* ── ATMOSPHERE ── */
+.bg-grain {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.04; mix-blend-mode: overlay;
+}
+
+.bg-grid {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(242,216,122,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242,216,122,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transition: opacity 1.2s ease;
+}
+
+.bg-glow {
+  position: fixed; z-index: 0; pointer-events: none;
+  width: 900px; height: 900px; border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  transition: background 1.6s ease;
+  background: radial-gradient(circle, rgba(60,80,120,0.12) 0%, transparent 60%);
+}
+
+body.act-human .bg-glow {
+  background: radial-gradient(circle, rgba(221,184,104,0.14) 0%, rgba(122,84,24,0.06) 35%, transparent 65%);
+}
+
+body.act-human .bg-grid { opacity: 0.4; }
+
+/* ── STAGE ── */
+.stage {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* ── PERSISTENT TOP MARK ── */
+.top-mark {
+  position: fixed;
+  top: 28px; left: 32px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.9;
+}
+
+.top-mark-logo { width: 30px; height: 30px; }
+
+.top-mark-text {
+  font-family: 'Fraunces', serif;
+  font-weight: 400; font-size: 14px;
+  color: var(--cream); letter-spacing: -0.01em;
+}
+
+.top-mark-text em { font-style: italic; font-weight: 500; color: var(--gold-light); }
+.top-mark-text sup {
+  font-family: 'DM Mono', monospace; font-size: 6px;
+  vertical-align: super; color: var(--cream-mute); margin-left: 2px;
+}
+
+.top-counter {
+  position: fixed;
+  top: 28px; right: 32px;
+  z-index: 50;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--cream-mute);
+  text-align: right;
+}
+
+.top-counter strong { color: var(--gold-light); font-weight: 500; }
+
+/* ══════════════════════════════════════════════════ */
+/* ACT SHELL                                           */
+/* ══════════════════════════════════════════════════ */
+
+.act {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: actIn 1s ease both;
+}
+
+.act.active { display: flex; }
+
+@keyframes actIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── DIMENSION EYEBROW ── */
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.34em;
+  text-transform: uppercase; color: var(--gold-light);
+  font-weight: 500; margin-bottom: 32px;
+  display: flex; align-items: center; gap: 14px;
+}
+
+.eyebrow::before, .eyebrow::after {
+  content: '';
+  width: 40px; height: 0.5px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+}
+
+/* ══════════════════════════════════════════════════ */
+/* ACT 0 — OPENING                                     */
+/* ══════════════════════════════════════════════════ */
+
+.opening-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.98; letter-spacing: -0.03em;
+  color: var(--cream);
+  font-variation-settings: "opsz" 144;
+  margin-bottom: 28px;
+  max-width: 14ch;
+}
+
+.opening-title em {
+  font-style: italic; font-weight: 500;
+  background: linear-gradient(135deg, #F8E08C 0%, #F2D87A 40%, #DDB868 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.opening-sub {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(17px, 2.2vw, 22px);
+  line-height: 1.5; color: var(--cream-dim);
+  max-width: 30ch; margin-bottom: 48px;
+}
+
+/* ── INDUSTRY SELECT ── */
+.industry-prompt {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.26em;
+  text-transform: uppercase; color: var(--cream-mute);
+  font-weight: 500; margin-bottom: 18px;
+}
+
+.industry-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+.industry-chip {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: var(--cream-dim);
+  background: rgba(221,184,104,0.04);
+  border: 0.5px solid rgba(242,216,122,0.3);
+  padding: 11px 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.01em;
+}
+
+.industry-chip:hover {
+  background: rgba(221,184,104,0.12);
+  border-color: var(--gold-light);
+  color: var(--cream);
+  transform: translateY(-2px);
+}
+
+.industry-custom {
+  display: flex;
+  gap: 0;
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.industry-input {
+  flex: 1;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px; color: var(--cream);
+  background: rgba(10,9,8,0.6);
+  border: 0.5px solid rgba(242,216,122,0.3);
+  border-right: none;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+
+.industry-input::placeholder { color: var(--cream-faint); }
+.industry-input:focus { border-color: var(--gold-light); }
+
+.industry-go {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--ink);
+  background: var(--gold-light);
+  border: none; padding: 0 22px;
+  cursor: pointer; font-weight: 600;
+  transition: background 0.25s ease;
+}
+
+.industry-go:hover { background: var(--gold); }
+
+/* ══════════════════════════════════════════════════ */
+/* ACT 1 — THE EXTRAPOLATION (machine)                 */
+/* ══════════════════════════════════════════════════ */
+
+.machine-frame {
+  width: 100%;
+  max-width: 720px;
+  background: rgba(11,13,17,0.7);
+  border: 0.5px solid rgba(143,168,212,0.3);
+  padding: 0;
+  position: relative;
+  text-align: left;
+}
+
+.machine-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-bottom: 0.5px solid rgba(143,168,212,0.25);
+  background: rgba(143,168,212,0.05);
+}
+
+.machine-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--machine-blue); opacity: 0.7;
+}
+
+.machine-bar-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--machine-blue);
+  font-weight: 500;
+}
+
+.machine-bar-status {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(143,168,212,0.6);
+}
+
+.machine-prompt {
+  padding: 18px 24px 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.04em;
+  color: rgba(143,168,212,0.7);
+  line-height: 1.6;
+}
+
+.machine-prompt strong { color: var(--cream); font-weight: 500; }
+
+.machine-output {
+  padding: 8px 24px 24px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px; line-height: 1.7;
+  color: rgba(200,210,230,0.88);
+  min-height: 180px;
+}
+
+.machine-cursor {
+  display: inline-block;
+  width: 8px; height: 17px;
+  background: var(--machine-blue);
+  vertical-align: text-bottom;
+  margin-left: 1px;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+.machine-tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: rgba(143,168,212,0.55);
+  background: rgba(143,168,212,0.08);
+  padding: 1px 7px;
+  margin: 0 1px;
+  border-radius: 2px;
+}
+
+.machine-verdict {
+  padding: 14px 24px;
+  border-top: 0.5px solid rgba(143,168,212,0.25);
+  background: rgba(143,168,212,0.04);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.04em;
+  color: rgba(143,168,212,0.65);
+  line-height: 1.5;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.machine-verdict.show { opacity: 1; }
+.machine-verdict strong { color: rgba(200,210,230,0.9); font-weight: 500; }
+
+/* ══════════════════════════════════════════════════ */
+/* ACT 2 — THE THRESHOLD                               */
+/* ══════════════════════════════════════════════════ */
+
+.threshold-statement {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(26px, 3.6vw, 40px);
+  line-height: 1.3; letter-spacing: -0.02em;
+  color: var(--cream);
+  font-variation-settings: "opsz" 144;
+  margin-bottom: 20px;
+  max-width: 22ch;
+}
+
+.threshold-statement em {
+  font-style: italic; font-weight: 500;
+  background: linear-gradient(135deg, #F8E08C 0%, #F2D87A 40%, #DDB868 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.threshold-sub {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 18px; line-height: 1.5;
+  color: var(--cream-mute); margin-bottom: 44px;
+  max-width: 30ch;
+}
+
+.vision-input-wrap {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.vision-input-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.26em;
+  text-transform: uppercase; color: var(--gold-light);
+  font-weight: 500; margin-bottom: 14px;
+  text-align: left;
+}
+
+.vision-textarea {
+  width: 100%;
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 400;
+  font-size: 22px; line-height: 1.5;
+  color: var(--cream);
+  background: rgba(221,184,104,0.04);
+  border: none;
+  border-bottom: 1.5px solid var(--gold-light);
+  padding: 16px 4px;
+  outline: none;
+  resize: none;
+  min-height: 90px;
+  transition: background 0.3s ease;
+}
+
+.vision-textarea::placeholder {
+  color: rgba(245,241,230,0.28);
+  font-style: italic;
+}
+
+.vision-textarea:focus { background: rgba(221,184,104,0.07); }
+
+.vision-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.vision-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cream-faint);
+}
+
+.vision-submit {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--ink);
+  background: var(--gold-light);
+  border: none; padding: 13px 28px;
+  cursor: pointer; font-weight: 600;
+  transition: all 0.25s ease;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.vision-submit.ready { opacity: 1; pointer-events: auto; }
+.vision-submit.ready:hover { background: var(--gold); transform: translateY(-2px); }
+
+/* ══════════════════════════════════════════════════ */
+/* ACT 3 — THE PLATE (artifact)                        */
+/* ══════════════════════════════════════════════════ */
+
+.plate-wrap {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plate {
+  width: 100%;
+  background: var(--ink);
+  border: 0.5px solid rgba(242,216,122,0.35);
+  padding: 56px 56px 44px;
+  position: relative;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+
+.plate-glow {
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(221,184,104,0.12) 0%, transparent 60%);
+  top: -200px; right: -150px;
+  pointer-events: none;
+}
+
+.plate-corner {
+  position: absolute; width: 26px; height: 26px;
+}
+.plate-corner-tl { top: 18px; left: 18px; border-top: 1.5px solid var(--gold-light); border-left: 1.5px solid var(--gold-light); }
+.plate-corner-br { bottom: 18px; right: 18px; border-bottom: 1.5px solid var(--gold-light); border-right: 1.5px solid var(--gold-light); }
+
+.plate-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--gold-light);
+  font-weight: 500; margin-bottom: 24px;
+  position: relative; z-index: 2;
+}
+
+.plate-number {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 15px; color: var(--cream-mute);
+  margin-bottom: 16px;
+  position: relative; z-index: 2;
+}
+
+.plate-number strong { color: var(--gold-light); font-weight: 400; font-style: normal; }
+
+.plate-vision {
+  font-family: 'Fraunces', serif;
+  font-weight: 400; font-style: italic;
+  font-size: clamp(24px, 3.4vw, 34px);
+  line-height: 1.32; letter-spacing: -0.015em;
+  color: var(--cream);
+  font-variation-settings: "opsz" 144;
+  margin-bottom: 28px;
+  position: relative; z-index: 2;
+}
+
+.plate-context {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--cream-mute);
+  margin-bottom: 32px;
+  position: relative; z-index: 2;
+}
+
+.plate-divider {
+  width: 48px; height: 1.5px;
+  background: var(--gold-light);
+  margin-bottom: 24px;
+  position: relative; z-index: 2;
+}
+
+.plate-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative; z-index: 2;
+}
+
+.plate-footer-left {
+  display: flex; flex-direction: column; gap: 5px;
+}
+
+.plate-attribution {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 400;
+  font-size: 14px; color: var(--cream);
+}
+
+.plate-doctrine {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--cream-mute);
+}
+
+.plate-mark {
+  display: flex; align-items: center; gap: 10px;
+}
+
+.plate-mark-logo { width: 32px; height: 32px; }
+
+.plate-mark-text {
+  font-family: 'Fraunces', serif;
+  font-weight: 400; font-size: 13px;
+  color: var(--cream); text-align: right;
+}
+
+.plate-mark-text em { font-style: italic; font-weight: 500; color: var(--gold-light); }
+
+.plate-mark-tagline {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold-light);
+  text-align: right; margin-top: 2px;
+}
+
+/* ── PLATE ACTIONS ── */
+.plate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+
+.plate-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; font-weight: 500;
+  padding: 12px 22px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 0.5px solid rgba(242,216,122,0.4);
+  background: transparent;
+  color: var(--gold-light);
+  display: flex; align-items: center; gap: 8px;
+}
+
+.plate-btn:hover { background: rgba(221,184,104,0.1); transform: translateY(-2px); }
+
+.plate-btn-primary {
+  background: var(--gold-light);
+  color: var(--ink);
+  border-color: var(--gold-light);
+  font-weight: 600;
+}
+
+.plate-btn-primary:hover { background: var(--gold); }
+
+/* ── CLOSING DOCTRINE ── */
+.closing-doctrine {
+  max-width: 600px;
+  text-align: center;
+  padding-top: 36px;
+  border-top: 0.5px solid rgba(242,216,122,0.18);
+}
+
+.closing-text {
+  font-family: 'Fraunces', serif;
+  font-weight: 300; font-style: italic;
+  font-size: 20px; line-height: 1.45;
+  color: var(--cream-dim); margin-bottom: 24px;
+}
+
+.closing-text em {
+  font-style: italic; font-weight: 500;
+  color: var(--gold-light);
+}
+
+.closing-cta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold-light);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--gold-light);
+  padding-bottom: 3px;
+  transition: opacity 0.25s ease;
+}
+
+.closing-cta:hover { opacity: 0.7; }
+
+/* ── LEDGER STRIP ── */
+.ledger {
+  width: 100%;
+  max-width: 680px;
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 0.5px solid rgba(242,216,122,0.18);
+}
+
+.ledger-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--gold-light);
+  font-weight: 500; margin-bottom: 20px;
+  text-align: center;
+}
+
+.ledger-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ledger-entry {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 12px 16px;
+  background: rgba(221,184,104,0.03);
+  border-left: 1.5px solid rgba(242,216,122,0.4);
+  text-align: left;
+}
+
+.ledger-num {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 16px; color: var(--gold-light);
+  flex-shrink: 0; opacity: 0.7;
+  min-width: 44px;
+}
+
+.ledger-vision {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 400;
+  font-size: 15px; line-height: 1.4;
+  color: var(--cream-dim);
+}
+
+.ledger-context {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--cream-faint);
+  margin-top: 4px;
+}
+
+/* ── REPLAY ── */
+.replay {
+  margin-top: 36px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--cream-mute);
+  background: none; border: none;
+  cursor: pointer; transition: color 0.25s ease;
+}
+
+.replay:hover { color: var(--gold-light); }
+
+/* ── LOADING / SAVE STATE ── */
+.save-state {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--cream-faint);
+  margin-top: 8px; min-height: 14px;
+}
+
+@media (max-width: 640px) {
+  .plate { padding: 40px 28px 32px; }
+  .top-mark-text { display: none; }
+  .eyebrow::before, .eyebrow::after { width: 20px; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+<div class="bg-grain"></div>
+
+<!-- PERSISTENT MARKS -->
+<div class="top-mark">
+  <div class="top-mark-logo">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <circle cx="40" cy="40" r="38" fill="none" stroke="#F2D87A" stroke-width="1.2"/>
+      <circle cx="40" cy="40" r="30" fill="none" stroke="rgba(242,216,122,0.3)" stroke-width="0.6"/>
+      <line x1="8" y1="40" x2="72" y2="40" stroke="rgba(242,216,122,0.25)" stroke-width="0.5"/>
+      <line x1="40" y1="40" x2="40" y2="14" stroke="#F2D87A" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="40" cy="40" r="5" fill="#F2D87A"/>
+      <circle cx="40" cy="40" r="2.5" fill="#0A0908"/>
+      <line x1="40" y1="6" x2="40" y2="10" stroke="#F2D87A" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="top-mark-text">Conviction <em>Index</em><sup>™</sup></div>
+</div>
+
+<div class="top-counter">
+  Dimension <strong>v</strong> of v · Mythic Vision
+</div>
+
+<div class="stage">
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- ACT 0 — OPENING                            -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="act active" id="act-open">
+    <div class="eyebrow">The Last Thing It Cannot Do</div>
+    <h1 class="opening-title">AI extrapolates.<br>Humans <em>invent.</em></h1>
+    <p class="opening-sub">Most people have never felt the difference. In ninety seconds, you will.</p>
+
+    <div class="industry-prompt">First — choose your world</div>
+    <div class="industry-grid" id="industry-grid">
+      <div class="industry-chip" data-industry="banking">Banking</div>
+      <div class="industry-chip" data-industry="healthcare">Healthcare</div>
+      <div class="industry-chip" data-industry="insurance">Insurance</div>
+      <div class="industry-chip" data-industry="manufacturing">Manufacturing</div>
+      <div class="industry-chip" data-industry="cybersecurity">Cybersecurity</div>
+      <div class="industry-chip" data-industry="energy">Energy</div>
+      <div class="industry-chip" data-industry="logistics">Logistics</div>
+      <div class="industry-chip" data-industry="education">Education</div>
+    </div>
+    <div class="industry-custom">
+      <input type="text" class="industry-input" id="industry-input" placeholder="or name your own industry…" maxlength="40" />
+      <button class="industry-go" id="industry-go">Begin</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- ACT 1 — THE EXTRAPOLATION                  -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="act" id="act-machine">
+    <div class="eyebrow">Act i · The Machine Answers</div>
+    <div class="machine-frame">
+      <div class="machine-bar">
+        <div class="machine-dot"></div>
+        <div class="machine-bar-label">Autonomous Model · Generating</div>
+        <div class="machine-bar-status" id="machine-status">processing…</div>
+      </div>
+      <div class="machine-prompt">
+        PROMPT: <strong>Imagine the future of <span id="machine-industry">your industry</span>.</strong>
+      </div>
+      <div class="machine-output" id="machine-output"></div>
+      <div class="machine-verdict" id="machine-verdict">
+        <strong>Output complete.</strong> Every element above already exists. The model has recombined the present and called it the future. This is extrapolation — confident, fluent, and entirely derivative. <strong>It is the most the machine can do.</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- ACT 2 — THE THRESHOLD                       -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="act" id="act-threshold">
+    <div class="eyebrow">Act ii · The Threshold</div>
+    <h2 class="threshold-statement">Now do the thing it <em>cannot.</em></h2>
+    <p class="threshold-sub">Not a prediction. Not a faster version of today. A future that has never existed — that only a human could imagine.</p>
+
+    <div class="vision-input-wrap">
+      <div class="vision-input-label">Imagine the future of <span id="threshold-industry">your industry</span> —</div>
+      <textarea class="vision-textarea" id="vision-textarea" placeholder="The thing no model could extrapolate from what already exists is…" maxlength="240"></textarea>
+      <div class="vision-meta">
+        <div class="vision-count" id="vision-count">0 / 240</div>
+        <button class="vision-submit" id="vision-submit">Cross the threshold →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- ACT 3 — THE PLATE                           -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="act" id="act-plate">
+    <div class="eyebrow">Act iii · What Only You Could Make</div>
+
+    <div class="plate-wrap">
+      <div class="plate" id="plate">
+        <div class="plate-glow"></div>
+        <div class="plate-corner plate-corner-tl"></div>
+        <div class="plate-corner plate-corner-br"></div>
+
+        <div class="plate-eyebrow">The Ledger of Human Imagination</div>
+        <div class="plate-number">Human Vision <strong id="plate-number-val">№ 001</strong></div>
+        <p class="plate-vision" id="plate-vision">—</p>
+        <div class="plate-context" id="plate-context">On the future of —</div>
+        <div class="plate-divider"></div>
+
+        <div class="plate-footer">
+          <div class="plate-footer-left">
+            <div class="plate-attribution">A future no machine could extrapolate.</div>
+            <div class="plate-doctrine">Mythic Vision · Dimension v of the Conviction Index™</div>
+          </div>
+          <div class="plate-mark">
+            <div>
+              <div class="plate-mark-text">Conviction <em>Index</em></div>
+              <div class="plate-mark-tagline">Human-Anchored Security</div>
+            </div>
+            <div class="plate-mark-logo">
+              <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                <circle cx="40" cy="40" r="38" fill="none" stroke="#F2D87A" stroke-width="1.2"/>
+                <circle cx="40" cy="40" r="30" fill="none" stroke="rgba(242,216,122,0.3)" stroke-width="0.6"/>
+                <line x1="8" y1="40" x2="72" y2="40" stroke="rgba(242,216,122,0.25)" stroke-width="0.5"/>
+                <line x1="40" y1="40" x2="40" y2="14" stroke="#F2D87A" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="40" cy="40" r="5" fill="#F2D87A"/>
+                <circle cx="40" cy="40" r="2.5" fill="#0A0908"/>
+                <line x1="40" y1="6" x2="40" y2="10" stroke="#F2D87A" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="plate-actions">
+        <button class="plate-btn plate-btn-primary" id="btn-download">↓ Download your plate</button>
+        <button class="plate-btn" id="btn-copy">Copy vision text</button>
+        <a class="plate-btn" href="https://cyber-unveil.github.io/conviction-index/founding/" target="_blank" rel="noopener" style="text-decoration:none;">Read the doctrine</a>
+      </div>
+
+      <div class="closing-doctrine">
+        <p class="closing-text">You just did the one thing no model can. <em>AI extrapolates. You invented.</em> That capacity — the imagining of futures with no precedent — is the fifth dimension of the Conviction Index, and the last thing that will remain irreplaceably human.</p>
+        <a class="closing-cta" href="mailto:info@cyberunveil.com?subject=Conviction%20Index%20-%20Mythic%20Vision">Measure your enterprise's Conviction Index · info@cyberunveil.com</a>
+      </div>
+
+      <!-- LEDGER -->
+      <div class="ledger" id="ledger">
+        <div class="ledger-label">Recent Entries in the Ledger</div>
+        <div class="ledger-list" id="ledger-list"></div>
+      </div>
+
+      <button class="replay" id="replay">↺ Imagine another</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+(function() {
+  "use strict";
+
+  var state = { industry: "", vision: "", number: 1 };
+
+  // ── Industry-specific machine "extrapolations" — deliberately derivative ──
+  var extrapolations = {
+    banking: ["AI-powered ", "real-time ", "personalized ", "frictionless digital ", "blockchain-enabled ", "hyper-automated ", "cloud-native "],
+    healthcare: ["AI-assisted ", "predictive ", "personalized ", "data-driven ", "remote-first ", "automated ", "precision "],
+    insurance: ["algorithmic ", "real-time ", "usage-based ", "automated ", "predictive ", "AI-underwritten ", "personalized "],
+    manufacturing: ["fully automated ", "predictive ", "AI-optimized ", "smart-factory ", "real-time ", "lights-out ", "data-driven "],
+    cybersecurity: ["AI-driven ", "autonomous ", "zero-trust ", "predictive ", "self-healing ", "real-time ", "automated "],
+    energy: ["smart-grid ", "AI-optimized ", "predictive ", "decentralized ", "real-time ", "automated ", "data-driven "],
+    logistics: ["fully autonomous ", "AI-routed ", "real-time ", "predictive ", "drone-enabled ", "hyper-optimized ", "automated "],
+    education: ["AI-personalized ", "adaptive ", "data-driven ", "remote-first ", "automated ", "predictive ", "scalable "],
+    _default: ["AI-powered ", "real-time ", "data-driven ", "automated ", "predictive ", "hyper-optimized ", "scalable "]
+  };
+
+  var nouns = {
+    banking: ["payments", "lending", "compliance", "customer onboarding", "fraud detection", "wealth management"],
+    healthcare: ["diagnosis", "patient care", "scheduling", "records management", "triage", "treatment planning"],
+    insurance: ["claims", "underwriting", "risk assessment", "customer service", "pricing", "fraud detection"],
+    manufacturing: ["production", "quality control", "supply chains", "maintenance", "logistics", "inventory"],
+    cybersecurity: ["threat detection", "incident response", "access control", "monitoring", "compliance", "risk scoring"],
+    energy: ["grid management", "demand forecasting", "distribution", "maintenance", "trading", "optimization"],
+    logistics: ["routing", "warehousing", "last-mile delivery", "fleet management", "tracking", "fulfillment"],
+    education: ["learning", "assessment", "tutoring", "administration", "curriculum", "enrollment"],
+    _default: ["operations", "decision-making", "customer experience", "efficiency", "workflows", "analytics"]
+  };
+
+  function getExtrap(ind) {
+    var key = ind.toLowerCase();
+    return extrapolations[key] || extrapolations._default;
+  }
+  function getNouns(ind) {
+    var key = ind.toLowerCase();
+    return nouns[key] || nouns._default;
+  }
+
+  function buildMachineText(ind) {
+    var ex = getExtrap(ind);
+    var no = getNouns(ind);
+    var sentences = [];
+    sentences.push("The future of " + ind + " will be ##" + ex[0].trim() + "## and ##" + ex[1].trim() + "##.");
+    sentences.push("Expect ##" + ex[2].trim() + "## " + no[0] + ", ##" + ex[3].trim() + "## " + no[1] + ", and ##" + ex[4].trim() + "## " + no[2] + ".");
+    sentences.push("Leaders will adopt ##" + ex[5].trim() + "## platforms to drive efficiency at ##" + ex[6].trim() + "## scale.");
+    sentences.push("The winners will be those who move fastest to optimize what already works.");
+    return sentences.join(" ");
+  }
+
+  // ── ACT TRANSITIONS ──
+  function showAct(id) {
+    var acts = document.querySelectorAll(".act");
+    for (var i = 0; i < acts.length; i++) acts[i].classList.remove("active");
+    document.getElementById(id).classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // ── ACT 0 → ACT 1 ──
+  function beginWith(industry) {
+    industry = (industry || "").trim();
+    if (!industry) return;
+    state.industry = industry;
+    document.getElementById("machine-industry").textContent = industry;
+    document.getElementById("threshold-industry").textContent = industry;
+    showAct("act-machine");
+    runMachine(industry);
+  }
+
+  var chips = document.querySelectorAll(".industry-chip");
+  for (var i = 0; i < chips.length; i++) {
+    chips[i].addEventListener("click", function() {
+      beginWith(this.getAttribute("data-industry"));
+    });
+  }
+  document.getElementById("industry-go").addEventListener("click", function() {
+    beginWith(document.getElementById("industry-input").value);
+  });
+  document.getElementById("industry-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") beginWith(this.value);
+  });
+
+  // ── ACT 1: typewriter machine output ──
+  function runMachine(industry) {
+    var raw = buildMachineText(industry);
+    var output = document.getElementById("machine-output");
+    var status = document.getElementById("machine-status");
+    output.innerHTML = "";
+    status.textContent = "generating…";
+
+    var tokens = raw.split("");
+    var html = "";
+    var idx = 0;
+    var inTag = false;
+    var tagBuffer = "";
+
+    var cursor = '<span class="machine-cursor"></span>';
+
+    function step() {
+      if (idx >= tokens.length) {
+        output.innerHTML = html;
+        status.textContent = "complete";
+        setTimeout(function() {
+          document.getElementById("machine-verdict").classList.add("show");
+        }, 600);
+        setTimeout(function() {
+          showAct("act-threshold");
+          document.getElementById("vision-textarea").focus();
+        }, 4200);
+        return;
+      }
+      var ch = tokens[idx];
+      // handle ## tag markers → wrap in machine-tag
+      if (ch === "#" && tokens[idx+1] === "#") {
+        if (!inTag) { inTag = true; tagBuffer = '<span class="machine-tag">'; }
+        else { inTag = false; tagBuffer = "</span>"; }
+        html += tagBuffer;
+        idx += 2;
+        output.innerHTML = html + cursor;
+        setTimeout(step, 10);
+        return;
+      }
+      html += ch;
+      idx++;
+      output.innerHTML = html + cursor;
+      // variable typing speed for realism
+      var delay = ch === " " ? 18 : (ch === "." ? 180 : 22);
+      setTimeout(step, delay);
+    }
+    setTimeout(step, 500);
+  }
+
+  // ── ACT 2: vision input ──
+  var textarea = document.getElementById("vision-textarea");
+  var count = document.getElementById("vision-count");
+  var submit = document.getElementById("vision-submit");
+
+  textarea.addEventListener("input", function() {
+    var len = this.value.length;
+    count.textContent = len + " / 240";
+    if (this.value.trim().length >= 8) submit.classList.add("ready");
+    else submit.classList.remove("ready");
+    this.style.height = "auto";
+    this.style.height = Math.max(90, this.scrollHeight) + "px";
+  });
+
+  submit.addEventListener("click", function() {
+    var v = textarea.value.trim();
+    if (v.length < 8) return;
+    state.vision = v;
+    finalize();
+  });
+
+  // ── ACT 3: build the plate + persist to ledger ──
+  function pad(n) { return ("00" + n).slice(-3); }
+
+  // Local ledger persistence. Works on GitHub Pages and any static host.
+  // (A shared/global ledger would require a backend; this persists per-browser,
+  //  which is what a standalone hosted file supports. Numbering is seeded so the
+  //  first vision feels like it joins something already in motion.)
+  var LEDGER_SEED = 47;
+
+  function getCounter() {
+    try {
+      var v = localStorage.getItem("mv:counter");
+      return v ? parseInt(v, 10) : LEDGER_SEED;
+    } catch (e) { return LEDGER_SEED; }
+  }
+  function setCounter(n) {
+    try { localStorage.setItem("mv:counter", String(n)); } catch (e) {}
+  }
+  function saveEntry(entry) {
+    try { localStorage.setItem("mv:entry:" + pad(entry.n), JSON.stringify(entry)); } catch (e) {}
+  }
+  function getEntry(n) {
+    try {
+      var v = localStorage.getItem("mv:entry:" + pad(n));
+      return v ? JSON.parse(v) : null;
+    } catch (e) { return null; }
+  }
+
+  function finalize() {
+    var num = getCounter() + 1;
+    setCounter(num);
+    state.number = num;
+
+    var entry = { n: num, v: state.vision, i: state.industry, t: Date.now() };
+    saveEntry(entry);
+
+    document.getElementById("plate-number-val").textContent = "№ " + pad(num);
+    document.getElementById("plate-vision").textContent = '"' + state.vision + '"';
+    document.getElementById("plate-context").textContent = "On the future of " + state.industry;
+
+    document.body.classList.add("act-human");
+    showAct("act-plate");
+    loadLedger();
+  }
+
+  function loadLedger() {
+    var listEl = document.getElementById("ledger-list");
+    listEl.innerHTML = "";
+    var shown = 0;
+    for (var n = state.number; n >= 1 && shown < 4; n--) {
+      var e = getEntry(n);
+      if (e) {
+        var div = document.createElement("div");
+        div.className = "ledger-entry";
+        div.innerHTML = '<div class="ledger-num">№ ' + pad(e.n) + '</div>' +
+          '<div><div class="ledger-vision">"' + escapeHtml(e.v) + '"</div>' +
+          '<div class="ledger-context">On the future of ' + escapeHtml(e.i) + '</div></div>';
+        listEl.appendChild(div);
+        shown++;
+      }
+    }
+    if (shown === 0) document.getElementById("ledger").style.display = "none";
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  // ── DOWNLOAD PLATE ──
+  document.getElementById("btn-download").addEventListener("click", function() {
+    var plate = document.getElementById("plate");
+    var btn = this;
+    var orig = btn.textContent;
+    btn.textContent = "rendering…";
+    html2canvas(plate, { backgroundColor: "#0A0908", scale: 2, useCORS: true }).then(function(canvas) {
+      var link = document.createElement("a");
+      link.download = "mythic-vision-" + pad(state.number) + ".png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+      btn.textContent = orig;
+    }).catch(function() {
+      btn.textContent = "screenshot the plate above";
+      setTimeout(function() { btn.textContent = orig; }, 2500);
+    });
+  });
+
+  // ── COPY VISION ──
+  document.getElementById("btn-copy").addEventListener("click", function() {
+    var btn = this;
+    var text = '"' + state.vision + '" — Human Vision № ' + pad(state.number) +
+      ', from the Ledger of Human Imagination. The fifth dimension of the Conviction Index™. cyber-unveil.github.io/conviction-index/founding';
+    var orig = btn.textContent;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = "✓ copied";
+        setTimeout(function() { btn.textContent = orig; }, 2000);
+      });
+    }
+  });
+
+  // ── REPLAY ──
+  document.getElementById("replay").addEventListener("click", function() {
+    textarea.value = "";
+    count.textContent = "0 / 240";
+    submit.classList.remove("ready");
+    document.getElementById("machine-verdict").classList.remove("show");
+    document.body.classList.remove("act-human");
+    showAct("act-open");
+  });
+
+  // ── Mood shift to "human" warmth when crossing threshold ──
+  var origFinalize = finalize;
+})();
+</script>
+
+</body>
+</html>
 
